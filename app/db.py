@@ -3,7 +3,7 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session
 
 DATABASE_URL = "sqlite:///./taskforge.db"
 
-class Base(DeclarativeBase)
+class Base(DeclarativeBase):
     pass
 
 
