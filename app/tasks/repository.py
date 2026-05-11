@@ -24,6 +24,16 @@ class TaskRepository():
         self.db.refresh(task)
         return task
 
+    def update_task_status(self, task_id: int, new_status: str): 
+        statement = select(Tasks).where(Tasks.id == task_id)
+        task = self.db.exec(statement).first()
+        if task is None: 
+            raise ValueError("No Task Found")
+        task.new_status = new_status
+        self.db.commit()
+        self.db.refresh(task)
+        return task
+
     
     def get_task(self, task_id: int):
         statement = select(Tasks).where(Tasks.id == task_id)
@@ -46,6 +56,8 @@ class TaskRepository():
         
         self.db.delete(task)
         self.db.commit()
+
+    
 
         
 

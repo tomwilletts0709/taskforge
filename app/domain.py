@@ -1,6 +1,6 @@
 from enum import Enum
 
-class UserProgress(str, Enum): 
+class TaskStatus(str, Enum): 
     TODO = "todo"
     IN_PROGRESS = "in_progress"
     TO_REVIEW = "to_review"
@@ -9,14 +9,14 @@ class UserProgress(str, Enum):
 
 
 TRANSITIONS = {
-    UserProgress.TODO: {UserProgress.IN_PROGRESS, UserProgress.CANCELLED},
-    UserProgress.IN_PROGRESS: {UserProgress.TO_REVIEW, UserProgress.CANCELLED},
-    UserProgress.TO_REVIEW: {UserProgress.COMPLETED, UserProgress.IN_PROGRESS},
-    UserProgress.COMPLETED: set(),
-    UserProgress.CANCELLED: set(),
+    TaskStatus.TODO: {TaskStatus.IN_PROGRESS, TaskStatus.CANCELLED},
+    TaskStatus.IN_PROGRESS: {TaskStatus.TO_REVIEW, TaskStatus.CANCELLED},
+    TaskStatus.TO_REVIEW: {TaskStatus.COMPLETED, TaskStatus.IN_PROGRESS},
+    TaskStatus.COMPLETED: set(),
+    TaskStatus.CANCELLED: set(),
 }
 
-def can_transition(current: UserProgress, new: UserProgress) -> bool: 
+def can_transition(current: TaskStatus, new: TaskStatus) -> bool: 
     return new in TRANSITIONS[current]
 
 
