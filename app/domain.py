@@ -7,6 +7,11 @@ class TaskStatus(str, Enum):
     COMPLETED = "completed"
     CANCELLED = "cancelled"
 
+class Roles(str, Enum): 
+    OWNER = "owner"
+    ADMIN = "admin"
+    MEMBER = "member"
+    VIEWER = "viewer"
 
 TRANSITIONS = {
     TaskStatus.TODO: {TaskStatus.IN_PROGRESS, TaskStatus.CANCELLED},

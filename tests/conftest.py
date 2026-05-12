@@ -13,7 +13,7 @@ class FakeTaskRepo:
     def __init__(self):
         self.tasks = {}
 
-    def create_task(self, tasks):
+    def create_task(self, task):
         task.id = len(self.tasks) + 1
         self.tasks[task.id] = task
         return task
