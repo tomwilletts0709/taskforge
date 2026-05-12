@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 import uvicorn
 
-
+from app.tasks.router import router as tasks_router
 
 app = FastAPI()
+app.include_router(tasks_router)
 
 @app.get("/")
 async def app_running(): 

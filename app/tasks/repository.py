@@ -1,8 +1,9 @@
-from app.tasks.models import Tasks
 from sqlalchemy import select
-from app.db import Session
+from sqlalchemy.orm import Session
 
-class TaskRepository(): 
+from app.tasks.models import Tasks
+
+class TaskRepository:
     def __init__(self, db: Session): 
         self.db = db
 
@@ -14,7 +15,8 @@ class TaskRepository():
     
     def update_task(self, task_id: int, title: str): 
         statement = select(Tasks).where(Tasks.id == task_id)
-        task = self.db.exec(statement).first()
+        task = self.db.execute(statement).scalars().first()
+
         if task is None: 
             raise ValueError("No ID Found")
         
@@ -26,10 +28,13 @@ class TaskRepository():
 
     def update_task_status(self, task_id: int, new_status: str): 
         statement = select(Tasks).where(Tasks.id == task_id)
-        task = self.db.exec(statement).first()
+        task = self.db.execute(statement).scalars().first()
+
         if task is None: 
             raise ValueError("No Task Found")
-        task.new_status = new_status
+        
+        task.status = new_status
+        
         self.db.commit()
         self.db.refresh(task)
         return task
@@ -37,20 +42,20 @@ class TaskRepository():
     
     def get_task(self, task_id: int):
         statement = select(Tasks).where(Tasks.id == task_id)
-        result = self.db.exec(statement).first()
+        result = self.db.execute(statement).scalars().first()
         if result is None: 
             raise ValueError("No ID Found")
         return result
     
     def list_tasks(self) -> list[Tasks]: 
         statement = select(Tasks)
-        tasks = self.db.exec(statement).all()
+        tasks = self.db.execute(statement).scalars().all()
         return tasks
 
     
     def delete_task(self, task_id: int): 
         statement = select(Tasks).where(Tasks.id == task_id)
-        task = self.db.exec(statement).first()
+        task = self.db.execute(statement).scalars().first()
         if task is None: 
             raise ValueError("No ID Found")
         
@@ -60,5 +65,3 @@ class TaskRepository():
     
 
         
-
-
