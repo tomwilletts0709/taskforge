@@ -62,6 +62,8 @@ class TaskRepository:
         self.db.delete(task)
         self.db.commit()
 
+        return task
+
     
 
         

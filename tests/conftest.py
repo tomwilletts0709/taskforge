@@ -1,20 +1,59 @@
-class FakeOrderRepo: 
-    def __init__(self): 
-        self.orders = {}
+import pytest
+from app.tasks.service import TaskService
 
-    def create_order(self, order): 
-        self.orders[order.id] = order 
-        return order 
+@pytest.fixture
+def fake_repo(): 
+    return FakeTaskRepo()
+
+@pytest.fixture
+def task_service(fake_repo):
+    return TaskService(fake_repo)
+
+class FakeTaskRepo:
+    def __init__(self):
+        self.tasks = {}
+
+    def create_task(self, tasks):
+        task.id = len(self.tasks) + 1
+        self.tasks[task.id] = task
+        return task
     
-    def get_order(self, order_id): 
-        return self.orders.get(order_id)
+    def update_task(self, task_id: int, title: str): 
+        task = self.tasks.get(task_id)
+
+        if task is None: 
+            raise ValueError("No ID Found")
+
+        task.title = title
+        return task
     
-    def delete_order(self, order_id): 
-        if order_id not in self.orders: 
-            return False
+    def update_task_status(self, task_id: int, new_status: str): 
+        task = self.tasks.get(task_id)
+
+        if task is None: 
+            raise ValueError("No Task Found")
         
-        del self.orders[order_id]
-        return True
+        task.status = new_status
+        return task
+
+    def get_task(self, task_id: int): 
+        task = self.tasks.get(task_id)
+
+        if task is None: 
+            raise ValueError("No ID Found")
+        
+        return task
     
-    def list_orders(self): 
-        return list(self.orders.values())
+    def list_tasks(self): 
+        return list(self.tasks.values())
+    
+    def delete_task(self, task_id: int): 
+        task = self.tasks.get(task_id)
+
+        if task is None: 
+            raise ValueError("No ID Found")
+        del self.tasks[task.id]
+        return task
+
+
+    
