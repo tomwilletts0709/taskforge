@@ -11,6 +11,7 @@ class Users(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(unique=True)
+ 
 
     role: Mapped[str] = mapped_column(default=Roles.MEMBER.value)
 
