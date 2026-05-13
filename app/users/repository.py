@@ -2,8 +2,6 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.users.models import Users
-from app.domain import Roles
-
 
 class UserRepository:
     def __init__(self, db: Session): 
@@ -15,7 +13,7 @@ class UserRepository:
         self.db.refresh(user) 
         return user
     
-    def update_user(self, user_id: int, name: str, email: str, role: Roles) -> Users:  
+    def update_user(self, user_id: int, name: str, email: str, role: str) -> Users:  
         statement = select(Users).where(Users.id  == user_id)
         user = self.db.execute(statement).scalars().first()
 
@@ -24,13 +22,13 @@ class UserRepository:
         
         user.name = name
         user.email = email
-        user.role = role.value
+        user.role = role
         
         self.db.commit()
         self.db.refresh(user)
         return user
     
-    def get_user(self, user_id: int, name: str) -> Users:
+    def get_user(self, user_id: int) -> Users:
         statement = select(Users).where(Users.id == user_id)
         result = self.db.execute(statement).scalars().first()
 

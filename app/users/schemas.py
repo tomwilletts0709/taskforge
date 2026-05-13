@@ -1,10 +1,10 @@
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 
 class UserCreate(BaseModel): 
     name: str = Field(min_length=5, max_length=50)
     email: str 
-    password: str = Field(min_legnth=5, max_length=50)
+    password: str = Field(min_length=5, max_length=50)
     password_repeat: str = Field(min_length=5, max_length=50)
 
     @model_validator(mode="after")

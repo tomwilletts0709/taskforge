@@ -6,14 +6,15 @@ from app.db import Base
 
 
 class Users(Base):
-    __tablename__ = "Users"
+    __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(unique=True)
- 
-
+    password_hash: Mapped[str] = mapped_column()
     role: Mapped[str] = mapped_column(default=Roles.MEMBER.value)
-
-    created_at: Mapped[datetime] = mapped_column(default= lambda: datetime.now(timezone.utc))
+    is_active: Mapped[bool] = mapped_column(default=True)
+    created_at: Mapped[datetime] = mapped_column(
+        default=lambda: datetime.now(timezone.utc)
+    )
     

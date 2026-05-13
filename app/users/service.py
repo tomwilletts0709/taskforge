@@ -8,10 +8,13 @@ class UserService:
         self.user_repo = user_repo
 
         
-    def create_user(self, name: str, email: str, role: Roles):
+    def create_user(self, name: str, email: str, password: str, role: Roles):
+        password_hash = hash_passowrd(password)
+
         user = Users(
             name=name,
             email=email,
+            password_hash=password_hash
             role=role.value
         )
         user = self.user_repo.create_user(user)
