@@ -15,7 +15,7 @@ class UserRepository:
         self.db.refresh(user) 
         return user
     
-    def update_user(self, user_id: int, name: str, email: str, role: Roles): 
+    def update_user(self, user_id: int, name: str, email: str, role: Roles) -> Users:  
         statement = select(Users).where(Users.id  == user_id)
         user = self.db.execute(statement).scalars().first()
 
@@ -30,7 +30,7 @@ class UserRepository:
         self.db.refresh(user)
         return user
     
-    def get_user(self, user_id: int, name: str):
+    def get_user(self, user_id: int, name: str) -> Users:
         statement = select(Users).where(Users.id == user_id)
         result = self.db.execute(statement).scalars().first()
 
@@ -43,7 +43,9 @@ class UserRepository:
         users = self.db.execute(statement).scalars().all()
         return users
     
-    def delete_users(self, user_id: int): 
+
+    #may get rid of for front facing users as they may just become inactive. Will have a think.
+    def delete_user(self, user_id: int) -> Users: 
         statement = select(Users).where(Users.id == user_id)
         result = self.db.execute(statement).scalars().first() 
         

@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.domain import TaskStatus, Roles
+from app.domain import Roles
 from app.db import Base
 
 
