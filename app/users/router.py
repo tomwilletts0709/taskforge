@@ -30,7 +30,7 @@ async def create_user(
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.get("/users", response_model=list[UserRead], status_code=201)
+@router.get("/users", response_model=list[UserRead], status_code=200)
 async def list_users(
     service: UserService = Depends(get_user_service)
 ): 
@@ -49,7 +49,7 @@ async def get_user(
     except ValueError: 
         raise HTTPException(status_code=404, detail="User Not Found.")
     
-@router.delete("/users/{user_id}", response_model=UserRead, status_code=200)
+@router.delete("/users/{user_id}", status_code=200)
 async def delete_user(
     user_id: int, 
     service: UserService = Depends(get_user_service)

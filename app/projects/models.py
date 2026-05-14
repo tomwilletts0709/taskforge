@@ -11,7 +11,6 @@ class Projects(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     title: Mapped[str] = mapped_column()
     description: Mapped[str] = mapped_column()
-    project_id: Mapped[int] = mapped_column()
     tasks: Mapped[list["Tasks"]] = relationship(back_populates="project")
 
     created_at: Mapped[datetime] = mapped_column(default = lambda: datetime.now(timezone.utc))

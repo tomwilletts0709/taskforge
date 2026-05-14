@@ -76,6 +76,13 @@ class FakeProjectRepo:
         project.id = len(self.projects) + 1
         self.projects[project.id] = project
         return project
+    
+    def update_project(self, project_id: int, title: str, description: str): 
+        project = self.projects.get(project_id)
+
+        if project is None: 
+            raise ValueError("No Project Found")
+        
 
     def get_project(self, project_id: int):
         project = self.projects.get(project_id)
@@ -87,12 +94,6 @@ class FakeProjectRepo:
 
     def list_projects(self):
         return list(self.projects.values())
-
-    def update_project(self, project_id: int, title: str, description: str):
-        project = self.get_project(project_id)
-        project.title = title
-        project.description = description
-        return project
 
     def delete_project(self, project_id: int): 
         project = self.projects.get(project_id)
