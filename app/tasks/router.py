@@ -25,14 +25,14 @@ async def create_task(
     )
 
 
-@router.get("/tasks", response_model=list[TaskRead])
+@router.get("/tasks", response_model=list[TaskRead], status_code=200)
 async def list_tasks(
     service: TaskService = Depends(get_task_service),
 ):
     return service.list_tasks()
 
 
-@router.get("/tasks/{task_id}", response_model=TaskRead)
+@router.get("/tasks/{task_id}", response_model=TaskRead, status_code=200)
 async def get_task(
     task_id: int,
     service: TaskService = Depends(get_task_service),

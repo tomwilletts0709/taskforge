@@ -18,7 +18,8 @@ class TaskService:
 
         task = Tasks(
             title=title.strip(), 
-            project_id=project_id
+            project_id=project_id,
+            status=TaskStatus.TODO.value,
          )
 
         task = self.task_repo.create_task(task)
@@ -62,5 +63,4 @@ class TaskService:
 
         return tasks
     
-
 

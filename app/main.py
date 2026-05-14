@@ -5,12 +5,12 @@ from app.tasks.router import router as tasks_router
 from app.users.router import router as users_router 
 from app.projects.router import router as project_router
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI()
 
 
 app.include_router(tasks_router)
 app.include_router(users_router)
-app.include_router(projet_router)
+app.include_router(project_router)
 
 @app.get("/")
 async def app_running(): 

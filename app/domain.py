@@ -13,6 +13,19 @@ class Roles(str, Enum):
     MEMBER = "member"
     VIEWER = "viewer"
 
+class EntityType(str, Enum): 
+    TASK = "task"
+    PROJECT = "project"
+    USER = "user"
+
+class AuditAction(str, Enum):
+    CREATED = "created"
+    UPDATED = "updated"
+    DELETED = "deleted"
+    STATUS_CHANGED = "status_changed"
+    ASSIGNED = "assigned"
+
+
 TRANSITIONS = {
     TaskStatus.TODO: {TaskStatus.IN_PROGRESS, TaskStatus.CANCELLED},
     TaskStatus.IN_PROGRESS: {TaskStatus.TO_REVIEW, TaskStatus.CANCELLED},

@@ -1,9 +1,21 @@
 import pytest
 from app.tasks.service import TaskService
+from app.tasks.repository import TaskRepository
+from app.projects.repository import ProjectRepository
+from app.projects.service import ProjectService
+
 
 @pytest.fixture
 def fake_repo(): 
     return FakeTaskRepo()
+
+@pytest.fixture
+def fake_project_repo():
+    return FakeProjectRepo()
+
+@pytest.fixture
+def project_service(fake_project_repo): 
+    return ProjectService(fake_project_repo)
 
 @pytest.fixture
 def task_service(fake_repo):
@@ -56,4 +68,36 @@ class FakeTaskRepo:
         return task
 
 
-    
+class FakeProjectRepo:
+    def __init__(self):
+        self.projects = {}
+
+    def create_project(self, project):
+        project.id = len(self.projects) + 1
+        self.projects[project.id] = project
+        return project
+
+    def get_project(self, project_id: int):
+        project = self.projects.get(project_id)
+
+        if project is None:
+            raise ValueError("No ID Found")
+
+        return project
+
+    def list_projects(self):
+        return list(self.projects.values())
+
+    def update_project(self, project_id: int, title: str, description: str):
+        project = self.get_project(project_id)
+        project.title = title
+        project.description = description
+        return project
+
+    def delete_project(self, project_id: int): 
+        project = self.projects.get(project_id)
+
+        if project is None: 
+            raise ValueError("No ID Found")
+        del self.projects[project.id]
+        return project
