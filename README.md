@@ -1,11 +1,7 @@
 # TaskForge API
 
-TaskForge is a small FastAPI project management API built as Project 2 in a
-20-project FastAPI learning path.
+TaskForge is a small FastAPI project management API built.
 
-The aim of this project is to move beyond basic CRUD by modelling users,
-projects, tasks, task status transitions, dependency injection, repository
-boundaries, and audit log foundations.
 
 ## Tech Stack
 
